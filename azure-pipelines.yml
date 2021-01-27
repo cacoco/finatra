@@ -1,9 +1,30 @@
 # File: simple-param.yml
 parameters:
+  - name: scala
+    type: object
+    default:
+      - 2.11.12
+      - 2.12.8
+      - 2.13.1
   - name: yesNo # name of the parameter; required
     type: boolean # data type of the parameter; required
     default: false
 
-steps:
-  - script: echo ${{ parameters.yesNo }}
-  
+trigger: none
+
+jobs: 
+  - job: dodo
+    steps: 
+      - script: 
+        unset SBT_OPTS # default $SBT_OPTS is irrelevant to sbt launcher
+        curl -s https://raw.githubusercontent.com/twitter/dodo/develop/bin/build | bash -s -- --no-test --scala-version $TRAVIS_SCALA_VERSION finatra
+  - job: build
+    steps: 
+      - ${{ each value in parameters.scala }}:
+        - script: 
+          ./sbt ++${{ value }} clean coverage test coverageReport
+          ./sbt ++${{ value }} coverageAggregate
+  - job: upload results
+    steps:
+      - script: bash <(curl -s https://codecov.io/bash)
+
