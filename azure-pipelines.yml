@@ -22,7 +22,7 @@ jobs:
       - ${{ each value in parameters.scala }}:
         - script: ./sbt ++${{ value }} clean coverage test coverageReport
         - script: ./sbt ++${{ value }} coverageAggregate
-  - job: upload-results
+  - job: upload_results
     steps:
       - script: bash <(curl -s https://codecov.io/bash)
 
