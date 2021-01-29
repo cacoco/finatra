@@ -24,17 +24,20 @@ jobs:
       - uses: olafurpg/setup-scala@v10
         with:
           java-version: adopt@1.8
-      # - name: cache build dependencies
-      #   uses: actions/cache@v2
-      #   env:
-      #     cache-name: cache-build-deps
-      #     with:
-      #       path: |
-      #         ~/.ivy2/cache
-      #         ~/.ivy2/local/com.twitter
-      #         ~/.sbt
-      #         ~/.dodo
-      #       key: 
+      - name: cache build dependencies
+        uses: actions/cache@v2
+        env:
+          cache-name: cache-build-deps
+          with:
+            path: |
+              ~/.ivy2/cache
+              ~/.ivy2/local/com.twitter
+              ~/.sbt
+              ~/.dodo
+            key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ matrix.scala }}-${{ matrix.java }}
+            # use a restore key that doesn't care about java version
+            restore-keys: |
+               ${{ runner.os }}-build-${{ env.cache-name }}-${{ matrix.scala }}-
       # run dodo to build finatra dependencies
       - name: dodo/build
         uses: cacoco/dodo-build@v3
