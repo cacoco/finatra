@@ -34,10 +34,7 @@ jobs:
             ~/.ivy2/local/com.twitter
             ~/.sbt
             ~/.dodo
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ matrix.scala }}-${{ matrix.java }}
-          # use a restore key that doesn't care about java version
-          restore-keys: |
-               ${{ runner.os }}-build-${{ env.cache-name }}-${{ matrix.scala }}-
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ matrix.scala }}
       # run dodo to build finatra dependencies
       - name: dodo/build
         uses: cacoco/dodo-build@v3
@@ -63,7 +60,7 @@ jobs:
           java-version: ${{ matrix.java }}
       - uses: olafurpg/setup-scala@v10
         with:
-          java-version: adopt@1.8
+          java-version: ${{ format('adopt@{0}', matrix.java) }}
       - name: test
         run: |
           ${{format('./sbt ++{0} clean coverage test coverageReport', matrix.scala) }}
