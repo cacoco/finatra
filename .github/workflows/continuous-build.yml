@@ -44,7 +44,7 @@ jobs:
           project: finatra
           no-test: true
           publish-m2: false
-          verbose: true
+          verbose: false
           dry-run: false
   build:
     needs: build-deps
