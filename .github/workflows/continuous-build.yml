@@ -47,10 +47,10 @@ jobs:
           dry-run: false
       - name: build
         run: |
-          ./sbt ++{{ matrix.scala }} clean coverage test coverageReport
+          ${{format('./sbt ++{0} clean coverage test coverageReport', matrix.scala) }}
       - name: coverage
         if: ${{ success() }}
         run: |
-          ./sbt ++{{ matrix.scala }} coverageAggregate
+          ${{format('./sbt ++{0} coverageAggregate', matrix.scala) }}
       # bash <(curl -s https://codecov.io/bash)
 
