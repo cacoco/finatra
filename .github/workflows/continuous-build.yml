@@ -26,7 +26,6 @@ jobs:
         with:
           java-version: ${{ format('adopt@{0}', matrix.java) }}
       - name: cache build dependencies
-        id: cache-build-deps
         uses: actions/cache@v2
         env:
           cache-name: cache-build-deps
@@ -39,7 +38,6 @@ jobs:
           key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ matrix.scala }}
       # run dodo to build finatra dependencies
       - name: dodo/build
-        if: steps.cache-build-deps.outputs.cache-hit != 'true'
         uses: cacoco/dodo-build@v3
         with:
           branch: develop
