@@ -2,7 +2,7 @@ name: continuous integration
 
 env:
   JAVA_OPTS: "-Dsbt.log.noformat=true"
-  TRAVIS: "1" # pretend we're TravisCI
+  TRAVIS: "true" # pretend we're TravisCI
 
 defaults:
   run:
