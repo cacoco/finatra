@@ -23,8 +23,8 @@ jobs:
         with:
           java-version: ${{ matrix.java }}
       - uses: olafurpg/setup-scala@v10
-        with:
-          java-version: ${{ format('adopt@{0}', matrix.java) }}
+        # with:
+        #   java-version: ${{ format('adopt@{0}', matrix.java) }}
       - name: cache build dependencies
         uses: actions/cache@v2
         env:
