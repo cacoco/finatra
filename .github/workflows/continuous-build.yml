@@ -39,7 +39,7 @@ jobs:
             ~/.ivy2/local/com.twitter
             ~/.sbt
             ~/.dodo
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ matrix.scala }}
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ matrix.scala }}-${{ matrix.java }}
       # run dodo to build finatra dependencies
       - name: dodo/build
         uses: cacoco/dodo-build@v3
