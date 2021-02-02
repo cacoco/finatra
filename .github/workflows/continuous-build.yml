@@ -22,9 +22,6 @@ jobs:
       - uses: actions/setup-java@v1
         with:
           java-version: ${{ matrix.java }}
-      # - uses: olafurpg/setup-scala@v10
-      #   with:
-      #     java-version: ${{ format('adopt@{0}', matrix.java) }}
       - name: echo java version
         run: java -Xmx32m -version
       - name: echo javac version
