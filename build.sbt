@@ -9,7 +9,7 @@ val releaseVersion = "21.2.0-SNAPSHOT"
 lazy val buildSettings = Seq(
   version := releaseVersion,
   scalaVersion := "2.12.11",
-  crossScalaVersions := Seq("2.11.12", "2.12.11"),
+  crossScalaVersions := Seq("2.11.12", "2.12.11", "2.13.1"),
   scalaModuleInfo := scalaModuleInfo.value.map(_.withOverrideScalaVersion(true)),
   fork in Test := true, // We have to fork to get the JavaOptions
   javaOptions in Test ++= travisTestJavaOptions
@@ -71,7 +71,7 @@ def travisTestJavaOptions: Seq[String] = {
       // in Travis with `sudo: false`.
       // See https://github.com/sbt/sbt/issues/653
       // and https://github.com/travis-ci/travis-ci/issues/3775
-      "-Xmx3G"
+      "-Xmx5G"
     )
   } else {
     Seq("-DSKIP_FLAKY=true")
