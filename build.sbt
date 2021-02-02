@@ -120,7 +120,12 @@ lazy val scalaCollectionCompat = "org.scala-lang.modules" %% "scala-collection-c
 
 lazy val withTwoThirteen = Seq(
   crossScalaVersions += "2.13.1",
-  libraryDependencies += scalaCollectionCompat,
+  libraryDependencies :=  {
+    val previous = libraryDependencies.value
+    if (scalaVersion.value.startsWith("2.13")) {
+      previous ++ Seq(scalaCollectionCompat)
+    } else previous 
+  },
   scalacOptions := {
     val previous = scalacOptions.value
     if (scalaVersion.value.startsWith("2.13")) {
