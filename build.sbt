@@ -107,7 +107,6 @@ lazy val versions = new {
   val scalaGuice = "4.2.11"
   val scalaTest = "3.1.2"
   val scalaTestPlusJunit = "3.1.2.0"
-  val scalaTestPlusMockito = "3.1.2.0"
   val scalaTestPlusScalaCheck = "3.1.2.0"
   val servletApi = "2.5"
   val slf4j = "1.7.30"
@@ -151,7 +150,6 @@ lazy val testDependenciesSettings = Seq(
     "org.scalacheck" %% "scalacheck" % versions.scalaCheck % Test,
     "org.scalatest" %% "scalatest" % versions.scalaTest % Test,
     "org.scalatestplus" %% "junit-4-12" % versions.scalaTestPlusJunit % Test,
-    "org.scalatestplus" %% "mockito-3-2" % versions.scalaTestPlusMockito % Test,
     "org.scalatestplus" %% "scalacheck-1-14" % versions.scalaTestPlusScalaCheck % Test
   )
 )
@@ -1208,14 +1206,22 @@ lazy val kafkaStreamsQueryableThriftClient =
 
 lazy val kafkaStreamsStaticPartitioning =
   (project in file("kafka-streams/kafka-streams-static-partitioning"))
-    .settings(projectSettings)
+    .settings(projectSettings, withTwoThirteen)
     .settings(
       name := "finatra-kafka-streams-static-partitioning",
       moduleName := "finatra-kafka-streams-static-partitioning",
       ScoverageKeys.coverageExcludedPackages := "<empty>;.*",
+      unmanagedSources / includeFilter in Compile := {
+        val scalaV = CrossVersion.partialVersion(scalaVersion.value)
+        scalaV match {
+          case Some((2, n)) if n <= 12 => "*.scala" || "*.java"
+          case _ => "*.scala"
+        }
+      },
       unmanagedSourceDirectories in Compile += {
         val sourceDir = (sourceDirectory in Compile).value
-        sourceDir / "scala-kafka2.2"
+        val scalaV = CrossVersion.partialVersion(scalaVersion.value)
+        sourceDir / crossVersionKafka(scalaV, "scala-kafka2.2", "scala-kafka2.5")
       },
       excludeDependencies in Test ++= kafkaStreamsExclusionRules,
       excludeDependencies ++= kafkaStreamsExclusionRules,
@@ -1234,7 +1240,7 @@ lazy val kafkaStreamsStaticPartitioning =
     )
 
 lazy val kafkaStreamsPrerestore = (project in file("kafka-streams/kafka-streams-prerestore"))
-  .settings(projectSettings)
+  .settings(projectSettings, withTwoThirteen)
   .settings(
     name := "finatra-kafka-streams-prerestore",
     moduleName := "finatra-kafka-streams-prerestore",
@@ -1252,7 +1258,7 @@ lazy val kafkaStreamsPrerestore = (project in file("kafka-streams/kafka-streams-
 
 lazy val kafkaStreamsQueryableThrift =
   (project in file("kafka-streams/kafka-streams-queryable-thrift"))
-    .settings(projectSettings)
+    .settings(projectSettings, withTwoThirteen)
     .settings(
       name := "finatra-kafka-streams-queryable-thrift",
       moduleName := "finatra-kafka-streams-queryable-thrift",

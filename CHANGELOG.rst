@@ -10,9 +10,8 @@ Unreleased
 Changed
 ~~~~~~~
 
-* finatra-kafka: Poll in a Future for Metadata when sending instead of blocking. This prevents
-  the `FinagleKafkaProducer` from blocking during normal sending operations, even when
-  metadata isn't available or the message buffer is full. ``PHAB_ID=D597313``
+* kafkaStreams: Enables cross-build for 2.13.1 for projects kafkaStreamsStaticPartitioning,
+  kafkaStreamsPrerestore, and kafkaStreamsQueryableThrift. ``PHAB_ID=D608958``
 
 21.1.0
 ------
