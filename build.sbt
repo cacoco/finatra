@@ -9,7 +9,7 @@ val releaseVersion = "21.2.0-SNAPSHOT"
 lazy val buildSettings = Seq(
   version := releaseVersion,
   scalaVersion := "2.12.11",
-  crossScalaVersions := Seq("2.11.12", "2.12.11", "2.13.1"),
+  crossScalaVersions := Seq("2.11.12", "2.12.11"),
   scalaModuleInfo := scalaModuleInfo.value.map(_.withOverrideScalaVersion(true)),
   fork in Test := true, // We have to fork to get the JavaOptions
   javaOptions in Test ++= travisTestJavaOptions
@@ -1332,7 +1332,7 @@ lazy val site = (project in file("doc"))
 // benchmark
 
 lazy val benchmark = (project in file("examples/benchmark"))
-  .settings(baseServerSettings)
+  .settings(baseServerSettings, withTwoThirteen)
   .settings(noPublishSettings)
   .settings(
     name := "benchmark-server",
@@ -1349,7 +1349,7 @@ lazy val benchmark = (project in file("examples/benchmark"))
 // injectable-app
 
 lazy val javaInjectableApp = (project in file("examples/injectable-app/java"))
-  .settings(exampleServerSettings)
+  .settings(exampleServerSettings, withTwoThirteen)
   .settings(noPublishSettings)
   .settings(
     name := "java-app",
@@ -1366,7 +1366,7 @@ lazy val javaInjectableApp = (project in file("examples/injectable-app/java"))
   )
 
 lazy val scalaInjectableApp = (project in file("examples/injectable-app/scala"))
-  .settings(exampleServerSettings)
+  .settings(exampleServerSettings, withTwoThirteen)
   .settings(noPublishSettings)
   .settings(
     name := "scala-app",
@@ -1384,7 +1384,7 @@ lazy val scalaInjectableApp = (project in file("examples/injectable-app/scala"))
 // injectable-twitter-server
 
 lazy val javaInjectableTwitterServer = (project in file("examples/injectable-twitter-server/java"))
-  .settings(exampleServerSettings)
+  .settings(exampleServerSettings, withTwoThirteen)
   .settings(noPublishSettings)
   .settings(
     name := "java-twitter-server",
@@ -1404,7 +1404,7 @@ lazy val javaInjectableTwitterServer = (project in file("examples/injectable-twi
 
 lazy val scalaInjectableTwitterServer =
   (project in file("examples/injectable-twitter-server/scala"))
-    .settings(exampleServerSettings)
+    .settings(exampleServerSettings, withTwoThirteen)
     .settings(noPublishSettings)
     .settings(
       name := "scala-twitter-server",
@@ -1422,7 +1422,7 @@ lazy val scalaInjectableTwitterServer =
 // http server
 
 lazy val javaHttpServer = (project in file("examples/http/java"))
-  .settings(exampleServerSettings)
+  .settings(exampleServerSettings, withTwoThirteen)
   .settings(noPublishSettings)
   .settings(
     name := "java-http-server",
@@ -1440,7 +1440,7 @@ lazy val javaHttpServer = (project in file("examples/http/java"))
   )
 
 lazy val scalaHttpServer = (project in file("examples/http/scala"))
-  .settings(exampleServerSettings)
+  .settings(exampleServerSettings, withTwoThirteen)
   .settings(noPublishSettings)
   .settings(
     name := "scala-http-server",
@@ -1458,7 +1458,7 @@ lazy val scalaHttpServer = (project in file("examples/http/scala"))
 // thrift server
 
 lazy val thriftIdl = (project in file("examples/thrift/idl"))
-  .settings(baseServerSettings)
+  .settings(baseServerSettings, withTwoThirteen)
   .settings(noPublishSettings)
   .settings(
     name := "thrift-server-idl",
@@ -1470,7 +1470,7 @@ lazy val thriftIdl = (project in file("examples/thrift/idl"))
   )
 
 lazy val javaThriftServer = (project in file("examples/thrift/java"))
-  .settings(exampleServerSettings)
+  .settings(exampleServerSettings, withTwoThirteen)
   .settings(noPublishSettings)
   .settings(
     name := "java-thrift-server",
@@ -1490,7 +1490,7 @@ lazy val javaThriftServer = (project in file("examples/thrift/java"))
   )
 
 lazy val scalaThriftServer = (project in file("examples/thrift/scala"))
-  .settings(exampleServerSettings)
+  .settings(exampleServerSettings, withTwoThirteen)
   .settings(noPublishSettings)
   .settings(
     name := "scala-thrift-server",
@@ -1512,7 +1512,7 @@ lazy val scalaThriftServer = (project in file("examples/thrift/scala"))
 // advanced examples
 
 lazy val streamingExample = (project in file("examples/advanced/streaming-example"))
-  .settings(exampleServerSettings)
+  .settings(exampleServerSettings, withTwoThirteen)
   .settings(noPublishSettings)
   .settings(
     name := "streaming-example",
@@ -1529,7 +1529,7 @@ lazy val streamingExample = (project in file("examples/advanced/streaming-exampl
   )
 
 lazy val twitterClone = (project in file("examples/advanced/twitter-clone"))
-  .settings(exampleServerSettings)
+  .settings(exampleServerSettings, withTwoThirteen)
   .settings(noPublishSettings)
   .settings(
     name := "twitter-clone",
@@ -1550,7 +1550,7 @@ lazy val twitterClone = (project in file("examples/advanced/twitter-clone"))
   )
 
 lazy val exampleWebDashboard = (project in file("examples/advanced/web-dashboard"))
-  .settings(exampleServerSettings)
+  .settings(exampleServerSettings, withTwoThirteen)
   .settings(noPublishSettings)
   .settings(
     name := "web-dashboard",
